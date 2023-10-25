@@ -10,32 +10,31 @@ jobs:
     name: Deploy Mailbox
     uses: Hoomanfr/cicd/.github/workflows/cd.yaml@v0.2.115
     secrets:
-      DOCKER_REGISTRY_URL: ${{ secrets.DOCKER_REGISTRY_URL }}
-      # just for docker hub no need for GC artifactory registry
-      DOCKER_REGISTRY_USERNAME: ${{ secrets.DOCKER_REGISTRY_USERNAME }}
-      # just for docker hub no need for GC artifactory registry
-      DOCKER_REGISTRY_PASSWORD: ${{ secrets.DOCKER_REGISTRY_PASSWORD }}
+      DOCKER_REGISTRY_URL: ${{ vars.DOCKER_REGISTRY_URL }}
       # postgresql://admin_ritgsrtzhz:8ybrlc67xd4ulw6k2jle@10.62.0.3:5432
-      DATABASE_INSTANCE_URL: ${{ secrets.DATABASE_INSTANCE_URL }}
+      DATABASE_INSTANCE_URL: ${{ vars.DATABASE_INSTANCE_URL }}
       # postgresql://admin_ritgsrtzhz:8ybrlc67xd4ulw6k2jle@127.0.0.1:5432
-      MIGRATION_DATABASE_INSTANCE_URL: ${{ secrets.MIGRATION_DATABASE_INSTANCE_URL }}
+      MIGRATION_DATABASE_INSTANCE_URL: ${{ vars.MIGRATION_DATABASE_INSTANCE_URL }}
       # hoomanfr-domain:us-west1:hoomanfr-domain-20bdb403
-      GCP_DB_INSTANCE_NAME: ${{ secrets.GCP_DB_INSTANCE_NAME }}
+      GCP_DB_INSTANCE_NAME: ${{ vars.GCP_DB_INSTANCE_NAME }}
       # mailbox
-      DB_NAME: ${{ secrets.DB_NAME }}
+      DB_NAME: ${{ vars.DB_NAME }}
       # it's in terraform project in the json file
-      GCP_CREDENTIALS: ${{ secrets.GCP_CREDENTIALS }}
+      GCP_CREDENTIALS: ${{ vars.GCP_CREDENTIALS }}
       # hoomanfr-domain-gke
-      GKE_CLUSTER_NAME: ${{ secrets.GKE_CLUSTER_NAME }}
+      GKE_CLUSTER_NAME: ${{ vars.GKE_CLUSTER_NAME }}
       # us-west1-c
-      GKE_ZONE: ${{ secrets.GKE_ZONE }}
-      GITHUBACTION_TOKEN: ${{ secrets.GITHUBACTION_TOKEN }}
+      GKE_ZONE: ${{ vars.GKE_ZONE }}
+      GITHUBACTION_TOKEN: ${{ vars.GITHUBACTION_TOKEN }}
       # Hoomanfr/cicd
-      DEPLOYMENT_REPO: ${{ secrets.DEPLOYMENT_REPO }}
+      DEPLOYMENT_REPO: ${{ vars.DEPLOYMENT_REPO }}
       # hoomanfr
-      GITHUBACTION_USERNAME: ${{ secrets.GITHUBACTION_USERNAME }}
-      SERVICE_NAME: mailbox
+      GITHUBACTION_USERNAME: ${{ vars.GITHUBACTION_USERNAME }}
+      ENVIRONMENT: staging
       DOMAIN_NAME: hoomanfr
-      PROJECT_ID: ${{ secrets.PROJECT_ID }}
+      SERVICE_NAME: mailbox
+      PROJECT_ID: ${{ vars.PROJECT_ID }}
       # the name under the IP Address in VPC Network with access type external
-      GLOBAL_STATIC_IP_NAME: ${{ secrets.GLOBAL_STATIC_IP_NAME }}
+      GLOBAL_STATIC_IP_NAME: ${{ vars.GLOBAL_STATIC_IP_NAME }}
+      VAULT_ADDR: ${{ vars.VAULT_ADDR }}
+      VAULT_TOKEN: ${{ vars.VAULT_TOKEN }}
