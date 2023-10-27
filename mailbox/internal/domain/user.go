@@ -5,8 +5,8 @@ import (
 	"strings"
 	"time"
 
-	"github.com/Hoomanfr/messaging/mailbox/internal/common"
 	"github.com/google/uuid"
+	"github.com/thumperq/messaging/mailbox/internal/common"
 )
 
 type User struct {

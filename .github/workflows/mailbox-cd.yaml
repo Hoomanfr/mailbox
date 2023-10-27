@@ -8,7 +8,7 @@ on:
 jobs:
   deploy:
     name: Deploy Mailbox
-    uses: Hoomanfr/cicd/.github/workflows/cd.yaml@v0.2.115
+    uses: thumperq/cicd/.github/workflows/cd.yaml@v0.2.115
     secrets:
       DOCKER_REGISTRY_URL: ${{ vars.DOCKER_REGISTRY_URL }}
       # postgresql://admin_ritgsrtzhz:8ybrlc67xd4ulw6k2jle@10.62.0.3:5432
@@ -26,7 +26,7 @@ jobs:
       # us-west1-c
       GKE_ZONE: ${{ vars.GKE_ZONE }}
       GITHUBACTION_TOKEN: ${{ vars.GITHUBACTION_TOKEN }}
-      # Hoomanfr/cicd
+      # thumperq/cicd
       DEPLOYMENT_REPO: ${{ vars.DEPLOYMENT_REPO }}
       # hoomanfr
       GITHUBACTION_USERNAME: ${{ vars.GITHUBACTION_USERNAME }}

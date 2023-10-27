@@ -3,8 +3,8 @@ package api
 import (
 	"net/http"
 
-	"github.com/Hoomanfr/messaging/mailbox/internal/application"
 	"github.com/gin-gonic/gin"
+	"github.com/thumperq/messaging/mailbox/internal/application"
 )
 
 type UserApi struct {

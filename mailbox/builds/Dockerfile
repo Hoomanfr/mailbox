@@ -6,7 +6,7 @@ RUN apk add --no-cache git
 RUN git config --global url."https://$GITHUB_USERNAME:$GITHUB_TOKEN@github.com/".insteadOf "https://git@github.com/"
 RUN echo "machine github.com login ${GITHUB_USERNAME} password ${GITHUB_TOKEN}" > ~/.netrc
 RUN chmod 600 ~/.netrc
-RUN export GOPRIVATE=github.com/Hoomanfr
+RUN export GOPRIVATE=github.com/thumperq
 # Build go project
 WORKDIR /mailbox
 COPY ./mailbox ./mailbox

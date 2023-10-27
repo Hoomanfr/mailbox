@@ -3,11 +3,11 @@ package db
 import (
 	"context"
 
-	"github.com/Hoomanfr/golib/database"
-	"github.com/Hoomanfr/messaging/mailbox/internal/domain"
 	"github.com/Masterminds/squirrel"
 	"github.com/jackc/pgx/v5"
 	"github.com/jackc/pgx/v5/pgxpool"
+	"github.com/thumperq/golib/database"
+	"github.com/thumperq/messaging/mailbox/internal/domain"
 )
 
 type MailboxDB interface {

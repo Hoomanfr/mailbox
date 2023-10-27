@@ -3,8 +3,8 @@ package application
 import (
 	"context"
 
-	"github.com/Hoomanfr/messaging/mailbox/internal/domain"
-	"github.com/Hoomanfr/messaging/mailbox/internal/infrastructure/db"
+	"github.com/thumperq/messaging/mailbox/internal/domain"
+	"github.com/thumperq/messaging/mailbox/internal/infrastructure/db"
 )
 
 type MailboxRequest struct {

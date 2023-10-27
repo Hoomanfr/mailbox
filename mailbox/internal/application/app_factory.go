@@ -1,7 +1,7 @@
 package application
 
 import (
-	"github.com/Hoomanfr/messaging/mailbox/internal/infrastructure/db"
+	"github.com/thumperq/messaging/mailbox/internal/infrastructure/db"
 )
 
 type AppFactory struct {

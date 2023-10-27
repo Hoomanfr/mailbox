@@ -3,7 +3,7 @@ package main
 import (
 	"os"
 
-	httpserver "github.com/Hoomanfr/golib/servers/http"
+	httpserver "github.com/thumperq/golib/servers/http"
 )
 
 func main() {
