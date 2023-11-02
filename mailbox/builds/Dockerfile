@@ -1,4 +1,4 @@
-FROM golang:1.20-alpine as build
+FROM golang:1.21-alpine as build
 # Setup private git repo
 ARG GITHUB_USERNAME
 ARG GITHUB_TOKEN
@@ -16,7 +16,7 @@ WORKDIR /mailbox/mailbox/cmd
 ENV GIN_MODE=release
 RUN go build -o mailbox-srv
 # Final image
-FROM golang:1.20-alpine
+FROM golang:1.21-alpine
 COPY --from=build /mailbox /mailbox
 WORKDIR /mailbox/mailbox/cmd
 EXPOSE 8080
