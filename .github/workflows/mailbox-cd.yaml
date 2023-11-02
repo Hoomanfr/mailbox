@@ -18,7 +18,7 @@ jobs:
       # hoomanfr-domain:us-west1:hoomanfr-domain-20bdb403
       GCP_DB_INSTANCE_NAME: ${{ vars.GCP_DB_INSTANCE_NAME }}
       # mailbox
-      DB_NAME: ${{ vars.DB_NAME }}
+      DB_NAME: mailbox
       # it's in terraform project in the json file
       GCP_CREDENTIALS: ${{ vars.GCP_CREDENTIALS }}
       # hoomanfr-domain-gke
