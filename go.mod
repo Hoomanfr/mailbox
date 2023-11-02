@@ -1,4 +1,4 @@
-module github.com/thumperq/messaging
+module github.com/thumperq/wms/mailbox
 
 go 1.21
 

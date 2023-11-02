@@ -7,7 +7,7 @@ import (
 	"github.com/jackc/pgx/v5"
 	"github.com/jackc/pgx/v5/pgxpool"
 	"github.com/thumperq/golib/database"
-	"github.com/thumperq/messaging/mailbox/internal/domain"
+	"github.com/thumperq/wms/mailbox/internal/domain"
 )
 
 type MailboxDB interface {

@@ -6,7 +6,7 @@ import (
 	"time"
 
 	"github.com/google/uuid"
-	"github.com/thumperq/messaging/mailbox/internal/common"
+	"github.com/thumperq/wms/mailbox/internal/common"
 )
 
 type User struct {

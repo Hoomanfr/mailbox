@@ -4,7 +4,7 @@ import (
 	"net/http"
 
 	"github.com/gin-gonic/gin"
-	"github.com/thumperq/messaging/mailbox/internal/application"
+	"github.com/thumperq/wms/mailbox/internal/application"
 )
 
 type MailboxApi struct {
