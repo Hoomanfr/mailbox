@@ -35,7 +35,7 @@ jobs:
       SERVICE_NAME: mailbox
       PROJECT_ID: ${{ vars.PROJECT_ID }}
       # the name under the IP Address in VPC Network with access type external
-      GLOBAL_STATIC_IP_NAME: ${{ vars.GLOBAL_STATIC_IP_NAME }}
+      GLOBAL_STATIC_IP_NAME: mailbox-gke-ingress-ipv4
       # the external ip address on port 8200
       VAULT_ADDR: ${{ vars.VAULT_ADDR }}
       VAULT_TOKEN: ${{ vars.VAULT_TOKEN }}
