@@ -3,6 +3,7 @@ package application
 import (
 	"context"
 
+	"github.com/thumperq/golib/messaging"
 	"github.com/thumperq/wms/mailbox/internal/domain"
 	"github.com/thumperq/wms/mailbox/internal/infrastructure/db"
 )
@@ -19,11 +20,13 @@ type UserResponse struct {
 
 type UserApp struct {
 	dbFactory db.DbFactory
+	broker    *messaging.Broker
 }
 
-func NewUserApp(DbFactory db.DbFactory) UserApp {
+func NewUserApp(DbFactory db.DbFactory, broker *messaging.Broker) UserApp {
 	app := UserApp{
 		dbFactory: DbFactory,
+		broker:    broker,
 	}
 	return app
 }

@@ -9,6 +9,11 @@ import (
 	"github.com/thumperq/wms/mailbox/internal/common"
 )
 
+// Event names
+const (
+	MailboxCreatedEvent = "mailbox_created"
+)
+
 type Mailbox struct {
 	ID        string
 	UserID    string
@@ -29,4 +34,22 @@ func NewMailbox(userId string, email string) (*Mailbox, error) {
 		Email:     email,
 		CreatedAt: time.Now(),
 	}, nil
+}
+
+type MailboxCreated struct {
+	Event     string
+	ID        string
+	UserID    string
+	Email     string
+	CreatedAt time.Time
+}
+
+func NewMailboxCreated(mb *Mailbox) MailboxCreated {
+	return MailboxCreated{
+		Event:     MailboxCreatedEvent,
+		ID:        mb.ID,
+		UserID:    mb.UserID,
+		Email:     mb.Email,
+		CreatedAt: mb.CreatedAt,
+	}
 }

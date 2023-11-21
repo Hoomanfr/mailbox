@@ -4,9 +4,11 @@ import (
 	"os"
 
 	httpserver "github.com/thumperq/golib/servers/http"
+	"github.com/thumperq/wms/mailbox/api"
 )
 
 func main() {
-	exitCode := <-httpserver.ListenAndServe(bootstrap)
+	env := &api.Env{}
+	exitCode := <-httpserver.ListenAndServe(env.Bootstrap)
 	os.Exit(exitCode)
 }

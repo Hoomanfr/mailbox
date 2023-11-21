@@ -3,6 +3,7 @@ package application
 import (
 	"context"
 
+	"github.com/thumperq/golib/messaging"
 	"github.com/thumperq/wms/mailbox/internal/domain"
 	"github.com/thumperq/wms/mailbox/internal/infrastructure/db"
 )
@@ -20,11 +21,13 @@ type MailboxResponse struct {
 
 type MailboxApp struct {
 	dbFactory db.DbFactory
+	broker    *messaging.Broker
 }
 
-func NewMailboxApp(DbFactory db.DbFactory) MailboxApp {
+func NewMailboxApp(DbFactory db.DbFactory, broker *messaging.Broker) MailboxApp {
 	app := MailboxApp{
 		dbFactory: DbFactory,
+		broker:    broker,
 	}
 	return app
 }
@@ -35,6 +38,11 @@ func (app MailboxApp) CreateMailbox(ctx context.Context, request MailboxRequest)
 		return "", err
 	}
 	if err := app.dbFactory.MailboxDb.Create(ctx, *mailbox); err != nil {
+		return "", err
+	}
+	event := domain.NewMailboxCreated(mailbox)
+	err = app.broker.Publish(event.Event, event)
+	if err != nil {
 		return "", err
 	}
 	return mailbox.ID, nil
