@@ -29,8 +29,8 @@ func NewMailboxDb(pgDb database.PgDB) MailboxDB {
 func (db MailboxDb) Create(ctx context.Context, mailbox domain.Mailbox) error {
 	err := db.pgDb.WithTransaction(ctx, func(tx pgx.Tx) error {
 		sql, args, err := sb.Insert("mailboxes").
-			Columns("id", "user_id", "email", "created_at").
-			Values(mailbox.ID, mailbox.UserID, mailbox.Email, mailbox.CreatedAt).
+			Columns("id", "user_id", "email", "created_at", "status").
+			Values(mailbox.ID, mailbox.UserID, mailbox.Email, mailbox.CreatedAt, mailbox.Status).
 			ToSql()
 		if err != nil {
 			return err
