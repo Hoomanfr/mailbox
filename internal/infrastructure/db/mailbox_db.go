@@ -13,6 +13,7 @@ import (
 type MailboxDB interface {
 	Create(ctx context.Context, mailbox domain.Mailbox) error
 	FindByUserId(ctx context.Context, userId string) ([]domain.Mailbox, error)
+	ActivateMailbox(ctx context.Context, mailboxId string) error
 }
 
 type MailboxDb struct {
@@ -46,7 +47,7 @@ func (db MailboxDb) Create(ctx context.Context, mailbox domain.Mailbox) error {
 func (db MailboxDb) FindByUserId(ctx context.Context, userId string) ([]domain.Mailbox, error) {
 	var mailboxes []domain.Mailbox
 	err := db.pgDb.WithConnection(ctx, func(c *pgxpool.Conn) error {
-		sql, args, err := sb.Select("id", "user_id", "email", "created_at").
+		sql, args, err := sb.Select("id", "user_id", "email", "created_at", "status").
 			From("mailboxes").
 			Where(squirrel.Eq{"user_id": userId}).
 			ToSql()
@@ -59,7 +60,7 @@ func (db MailboxDb) FindByUserId(ctx context.Context, userId string) ([]domain.M
 		}
 		for row.Next() {
 			var mailbox domain.Mailbox
-			err = row.Scan(&mailbox.ID, &mailbox.UserID, &mailbox.Email, &mailbox.CreatedAt)
+			err = row.Scan(&mailbox.ID, &mailbox.UserID, &mailbox.Email, &mailbox.CreatedAt, &mailbox.Status)
 			if err != nil {
 				return err
 			}
@@ -69,4 +70,22 @@ func (db MailboxDb) FindByUserId(ctx context.Context, userId string) ([]domain.M
 		return nil
 	})
 	return mailboxes, err
+}
+
+func (db MailboxDb) ActivateMailbox(ctx context.Context, mailboxId string) error {
+	err := db.pgDb.WithTransaction(ctx, func(tx pgx.Tx) error {
+		sql, args, err := sb.Update("mailboxes").
+			Set("status", domain.MailboxStatusActive).
+			Where(squirrel.Eq{"id": mailboxId}).
+			ToSql()
+		if err != nil {
+			return err
+		}
+		_, err = tx.Exec(ctx, sql, args...)
+		if err != nil {
+			return err
+		}
+		return nil
+	})
+	return err
 }

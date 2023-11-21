@@ -14,10 +14,16 @@ const (
 	MailboxCreatedEvent = "mailbox_created"
 )
 
+const (
+	MailboxStatusActive   = "active"
+	MailboxStatusInActive = "inactive"
+)
+
 type Mailbox struct {
 	ID        string
 	UserID    string
 	Email     string
+	Status    string
 	CreatedAt time.Time
 }
 
@@ -33,6 +39,7 @@ func NewMailbox(userId string, email string) (*Mailbox, error) {
 		UserID:    userId,
 		Email:     email,
 		CreatedAt: time.Now(),
+		Status:    MailboxStatusInActive,
 	}, nil
 }
 

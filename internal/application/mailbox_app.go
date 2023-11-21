@@ -17,6 +17,7 @@ type MailboxResponse struct {
 	Id     string `json:"id"`
 	UserId string `json:"user_id"`
 	Email  string `json:"email"`
+	Status string `json:"status"`
 }
 
 type MailboxApp struct {
@@ -62,6 +63,7 @@ func (app MailboxApp) UserMailboxes(ctx context.Context, userId string) ([]Mailb
 			Id:     mb.ID,
 			UserId: mb.UserID,
 			Email:  mb.Email,
+			Status: mb.Status,
 		})
 	}
 	return result, nil
