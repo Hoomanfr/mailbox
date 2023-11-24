@@ -9,7 +9,7 @@ import (
 )
 
 func main() {
-	env := &Env{}
+	env := NewEnv()
 	exitCode := <-httpserver.ListenAndServe(env.Bootstrap)
 	err := env.Broker.Disconnect()
 	if err != nil {
