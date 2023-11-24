@@ -4,6 +4,7 @@ import (
 	"context"
 
 	"github.com/thumperq/golib/config"
+	"github.com/thumperq/golib/logging"
 	"github.com/thumperq/golib/messaging"
 	httpserver "github.com/thumperq/golib/servers/http"
 	"github.com/thumperq/wms/mailbox/api"
@@ -16,6 +17,11 @@ import (
 type Env struct {
 	Cfg    config.CfgManager
 	Broker *messaging.Broker
+}
+
+func NewEnv() *Env {
+	logging.SetupLogging()
+	return &Env{}
 }
 
 func (env *Env) Bootstrap(apiSrv *httpserver.ApiServer) {
