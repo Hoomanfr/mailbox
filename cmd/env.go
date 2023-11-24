@@ -20,7 +20,10 @@ type Env struct {
 }
 
 func NewEnv() *Env {
-	logging.SetupLogging()
+	err := logging.SetupLogging()
+	if err != nil {
+		panic(err)
+	}
 	return &Env{}
 }
 
