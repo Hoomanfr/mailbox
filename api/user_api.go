@@ -4,6 +4,7 @@ import (
 	"net/http"
 
 	"github.com/gin-gonic/gin"
+	"github.com/thumperq/golib/logging"
 	"github.com/thumperq/wms/mailbox/internal/application"
 )
 
@@ -37,6 +38,7 @@ func (api UserApi) createUser(c *gin.Context) {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		return
 	}
+	logging.TraceLogger(c.Request.Context()).Info().Msgf("create user %s", id)
 	c.JSON(http.StatusCreated, gin.H{"id": id})
 }
 
