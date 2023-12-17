@@ -18,6 +18,15 @@ func NewMailboxConsumer(dbFactory db.DbFactory) MailboxConsumer {
 	}
 }
 
+func (c MailboxConsumer) ConsumeMailboxTopics(ctx context.Context, event domain.MailboxCreated) error {
+	time.Sleep(5 * time.Second)
+	err := c.dbFactory.MailboxDb.ActivateMailbox(ctx, event.ID)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
 func (c MailboxConsumer) ConsumeMailboxCreatedEvent(ctx context.Context, event domain.MailboxCreated) error {
 	time.Sleep(5 * time.Second)
 	err := c.dbFactory.MailboxDb.ActivateMailbox(ctx, event.ID)
