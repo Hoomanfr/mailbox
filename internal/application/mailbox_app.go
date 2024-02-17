@@ -2,7 +2,6 @@ package application
 
 import (
 	"context"
-
 	"github.com/thumperq/golib/messaging"
 	"github.com/thumperq/wms/mailbox/internal/domain"
 	"github.com/thumperq/wms/mailbox/internal/infrastructure/db"

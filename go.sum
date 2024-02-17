@@ -180,8 +180,6 @@ github.com/stretchr/testify v1.8.2/go.mod h1:w2LPCIKwWwSfY2zedu0+kehJoqGctiVI29o
 github.com/stretchr/testify v1.8.3/go.mod h1:sz/lmYIOXD/1dqDmKjjqLyZ2RngseejIcXlSw2iwfAo=
 github.com/stretchr/testify v1.8.4 h1:CcVxjf3Q8PM0mHUKJCdn+eZZtm5yQwehR5yeSVQQcUk=
 github.com/stretchr/testify v1.8.4/go.mod h1:sz/lmYIOXD/1dqDmKjjqLyZ2RngseejIcXlSw2iwfAo=
-github.com/thumperq/golib v0.1.14 h1:NoEvNnKMhSRPMMAkJMIN16+ED2XBap0PALXaQ61CaXY=
-github.com/thumperq/golib v0.1.14/go.mod h1:JFgwF+ms6Y7RY16yh8bHYRckhdHHjT3DJ83U6tUAJzs=
 github.com/thumperq/golib v0.1.15 h1:IkW/EycWmAR95Mfv0atcCMbgvv3Z8NLoVSWgFVVL9NA=
 github.com/thumperq/golib v0.1.15/go.mod h1:JFgwF+ms6Y7RY16yh8bHYRckhdHHjT3DJ83U6tUAJzs=
 github.com/twitchyliquid64/golang-asm v0.15.1 h1:SU5vSMR7hnwNxj24w34ZyCi/FmDZTkS4MhqMhdFk5YI=
