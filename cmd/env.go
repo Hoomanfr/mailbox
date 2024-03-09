@@ -45,7 +45,7 @@ func (env *Env) runSubscribers(ctx context.Context, dbFactory db.DbFactory) *mes
 	err = broker.Connect()
 	panicIfError(err)
 	mailboxConsumers := consumers.NewMailboxConsumer(dbFactory)
-	err = messaging.NewSubscriber[domain.MailboxCreated](broker).
+	err = messaging.NewSubscriber(broker).
 		Subscribe(ctx, "wms", "mailbox", domain.MailboxTopic, mailboxConsumers.ConsumeMailboxCreatedEvent)
 	panicIfError(err)
 	return broker

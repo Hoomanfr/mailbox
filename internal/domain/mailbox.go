@@ -52,6 +52,10 @@ type MailboxCreated struct {
 	CreatedAt time.Time
 }
 
+func (mc MailboxCreated) Name() string {
+	return mc.Event
+}
+
 func NewMailboxCreated(mb *Mailbox) MailboxCreated {
 	return MailboxCreated{
 		Event:     MailboxCreatedEvent,

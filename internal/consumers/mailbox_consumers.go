@@ -2,8 +2,10 @@ package consumers
 
 import (
 	"context"
+	"encoding/json"
 	"time"
 
+	"github.com/thumperq/golib/messaging"
 	"github.com/thumperq/wms/mailbox/internal/domain"
 	"github.com/thumperq/wms/mailbox/internal/infrastructure/db"
 )
@@ -27,9 +29,14 @@ func (c MailboxConsumer) ConsumeMailboxTopics(ctx context.Context, event domain.
 	return nil
 }
 
-func (c MailboxConsumer) ConsumeMailboxCreatedEvent(ctx context.Context, event domain.MailboxCreated) error {
+func (c MailboxConsumer) ConsumeMailboxCreatedEvent(ctx context.Context, msg messaging.Message) error {
 	time.Sleep(5 * time.Second)
-	err := c.dbFactory.MailboxDb.ActivateMailbox(ctx, event.ID)
+	var event domain.MailboxCreated
+	err := json.Unmarshal(msg.Data, &event)
+	if err != nil {
+		return err
+	}
+	err = c.dbFactory.MailboxDb.ActivateMailbox(ctx, event.ID)
 	if err != nil {
 		return err
 	}
