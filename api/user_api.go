@@ -20,7 +20,7 @@ func SetupUserApi(appFactory application.AppFactory, engine *gin.Engine) {
 }
 
 func (api UserApi) InitializeRoutes(engine *gin.Engine) {
-	engine.Group("/v1/users").
+	engine.Group("wms/mailbox/v1/users").
 		POST("/", api.createUser).
 		GET("/:id", api.getUser)
 }

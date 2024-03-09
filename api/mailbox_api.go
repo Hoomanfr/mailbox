@@ -19,7 +19,7 @@ func SetupMailboxApi(appFactory application.AppFactory, engine *gin.Engine) {
 }
 
 func (api MailboxApi) InitializeRoutes(engine *gin.Engine) {
-	engine.Group("/v1/mailboxes").
+	engine.Group("wms/mailbox/v1/mailboxes").
 		POST("/", api.createMailbox).
 		GET("/user/:user_id", api.getMailboxByUserId)
 }
