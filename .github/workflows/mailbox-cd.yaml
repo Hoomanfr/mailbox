@@ -8,7 +8,7 @@ on:
 jobs:
   deploy:
     name: Deploy Mailbox
-    uses: thumperq/cicd/.github/workflows/cd.yaml@v0.1.11
+    uses: thumperq/cicd/.github/workflows/cd.yaml@v0.1.13
     secrets:
       DOCKER_REGISTRY_URL: ${{ vars.DOCKER_REGISTRY_URL }}
       # postgresql://admin_ritgsrtzhz:8ybrlc67xd4ulw6k2jle@10.62.0.3:5432
@@ -34,8 +34,6 @@ jobs:
       DOMAIN_NAME: wms
       SERVICE_NAME: mailbox
       PROJECT_ID: ${{ vars.PROJECT_ID }}
-      # the name under the IP Address in VPC Network with access type external
-      GLOBAL_STATIC_IP_NAME: mailbox-gke-ingress-ipv4
       # the external ip address on port 8200
       VAULT_ADDR: ${{ vars.VAULT_ADDR }}
       VAULT_TOKEN: ${{ vars.VAULT_TOKEN }}
