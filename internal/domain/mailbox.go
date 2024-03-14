@@ -9,7 +9,6 @@ import (
 	"github.com/thumperq/wms/mailbox/internal/common"
 )
 
-// Event names and topics
 const (
 	MailboxTopic        = "mailbox"
 	MailboxCreatedEvent = "mailbox_created"
