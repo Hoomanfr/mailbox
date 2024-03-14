@@ -6,8 +6,8 @@ on:
 jobs:
   build-test:
     name: Build and Unit Test Mailbox
-    uses: thumperq/cicd/.github/workflows/ci.yaml@v0.1.33
+    uses: thumperq/cicd/.github/workflows/ci.yaml@v0.1.34
     secrets:
-      GITHUBACTION_TOKEN: ${{ secrets.GITHUBACTION_TOKEN }}
-      GITHUBACTION_USERNAME: ${{ secrets.GITHUBACTION_USERNAME }}
-      DOMAIN_NAME: ${{ secrets.DOMAIN_NAME }}
+      VAULT_ADDRESS: ${{ vars.VAULT_ADDR }}
+      VAULT_TOKEN: ${{ vars.VAULT_TOKEN }}
+      DOMAIN_NAME: wms
