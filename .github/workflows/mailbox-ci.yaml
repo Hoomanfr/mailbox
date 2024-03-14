@@ -6,7 +6,7 @@ on:
 jobs:
   build-test:
     name: Build and Unit Test Mailbox
-    uses: thumperq/cicd/.github/workflows/ci.yaml@v0.1.45
+    uses: thumperq/cicd/.github/workflows/ci.yaml@v0.1.46
     secrets:
       VAULT_ADDR: ${{ vars.VAULT_ADDR }}
       VAULT_TOKEN: ${{ vars.VAULT_TOKEN }}
