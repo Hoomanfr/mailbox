@@ -8,7 +8,7 @@ on:
 jobs:
   deploy:
     name: Deploy Mailbox
-    uses: thumperq/cicd/.github/workflows/cd.yaml@v0.1.36
+    uses: thumperq/cicd/.github/workflows/cd.yaml@v0.1.37
     secrets:
       ENVIRONMENT: staging
       DOMAIN_NAME: wms
