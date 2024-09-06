@@ -25,13 +25,14 @@ func (api MailboxApi) InitializeRoutes(engine *gin.Engine) {
 }
 
 func (api MailboxApi) createMailbox(c *gin.Context) {
+	ctx := c.Request.Context()
 	var request app.MailboxRequest
 	if err := c.ShouldBindJSON(&request); err != nil {
 		c.Error(err)
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
-	id, err := api.mailboxApp.CreateMailbox(c, request)
+	id, err := api.mailboxApp.CreateMailbox(ctx, request)
 	if err != nil {
 		c.Error(err)
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
@@ -41,8 +42,9 @@ func (api MailboxApi) createMailbox(c *gin.Context) {
 }
 
 func (api MailboxApi) getMailboxByUserId(c *gin.Context) {
+	ctx := c.Request.Context()
 	userId := c.Param("user_id")
-	mailboxes, err := api.mailboxApp.UserMailboxes(c, userId)
+	mailboxes, err := api.mailboxApp.UserMailboxes(ctx, userId)
 	if err != nil {
 		c.Error(err)
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})

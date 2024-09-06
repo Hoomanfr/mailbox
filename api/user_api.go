@@ -26,25 +26,27 @@ func (api UserApi) InitializeRoutes(engine *gin.Engine) {
 }
 
 func (api UserApi) createUser(c *gin.Context) {
+	ctx := c.Request.Context()
 	var request app.UserRequest
 	if err := c.ShouldBindJSON(&request); err != nil {
 		c.Error(err)
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
-	id, err := api.userApp.CreateUser(c, request)
+	id, err := api.userApp.CreateUser(ctx, request)
 	if err != nil {
 		c.Error(err)
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		return
 	}
-	logging.TraceLogger(c.Request.Context()).Info().Msgf("create user %s", id)
+	logging.TraceLogger(ctx).Info().Msgf("create user %s", id)
 	c.JSON(http.StatusCreated, gin.H{"id": id})
 }
 
 func (api UserApi) getUser(c *gin.Context) {
+	ctx := c.Request.Context()
 	id := c.Param("id")
-	user, err := api.userApp.FindUserById(c, id)
+	user, err := api.userApp.FindUserById(ctx, id)
 	if err != nil {
 		c.Error(err)
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
