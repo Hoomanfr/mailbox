@@ -4,16 +4,16 @@ import (
 	"net/http"
 
 	"github.com/gin-gonic/gin"
-	"github.com/thumperq/wms/mailbox/internal/application"
+	"github.com/thumperq/wms/mailbox/internal/app"
 )
 
 type MailboxApi struct {
-	appFactory application.AppFactory
+	mailboxApp app.MailboxApp
 }
 
-func SetupMailboxApi(appFactory application.AppFactory, engine *gin.Engine) {
+func SetupMailboxApi(mailboxApp app.MailboxApp, engine *gin.Engine) {
 	mailboxApi := MailboxApi{
-		appFactory: appFactory,
+		mailboxApp: mailboxApp,
 	}
 	mailboxApi.InitializeRoutes(engine)
 }
@@ -25,13 +25,13 @@ func (api MailboxApi) InitializeRoutes(engine *gin.Engine) {
 }
 
 func (api MailboxApi) createMailbox(c *gin.Context) {
-	var request application.MailboxRequest
+	var request app.MailboxRequest
 	if err := c.ShouldBindJSON(&request); err != nil {
 		c.Error(err)
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
-	id, err := api.appFactory.MailboxApp.CreateMailbox(c, request)
+	id, err := api.mailboxApp.CreateMailbox(c, request)
 	if err != nil {
 		c.Error(err)
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
@@ -42,7 +42,7 @@ func (api MailboxApi) createMailbox(c *gin.Context) {
 
 func (api MailboxApi) getMailboxByUserId(c *gin.Context) {
 	userId := c.Param("user_id")
-	mailboxes, err := api.appFactory.MailboxApp.UserMailboxes(c, userId)
+	mailboxes, err := api.mailboxApp.UserMailboxes(c, userId)
 	if err != nil {
 		c.Error(err)
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})

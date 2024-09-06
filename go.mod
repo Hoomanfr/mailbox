@@ -1,13 +1,15 @@
 module github.com/thumperq/wms/mailbox
 
-go 1.21
+go 1.23
+
+toolchain go1.23.0
 
 require (
 	github.com/Masterminds/squirrel v1.5.4
 	github.com/gin-gonic/gin v1.9.1
 	github.com/google/uuid v1.4.0
 	github.com/jackc/pgx/v5 v5.4.3
-	github.com/thumperq/golib v0.1.18
+	github.com/thumperq/golib v0.1.34
 )
 
 require (
@@ -62,10 +64,10 @@ require (
 	go.opentelemetry.io/otel v1.21.0 // indirect
 	go.opentelemetry.io/otel/trace v1.21.0 // indirect
 	golang.org/x/arch v0.3.0 // indirect
-	golang.org/x/crypto v0.15.0 // indirect
+	golang.org/x/crypto v0.17.0 // indirect
 	golang.org/x/net v0.10.0 // indirect
 	golang.org/x/sync v0.1.0 // indirect
-	golang.org/x/sys v0.14.0 // indirect
+	golang.org/x/sys v0.15.0 // indirect
 	golang.org/x/text v0.14.0 // indirect
 	golang.org/x/time v0.4.0 // indirect
 	google.golang.org/protobuf v1.30.0 // indirect

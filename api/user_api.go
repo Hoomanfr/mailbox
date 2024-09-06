@@ -5,16 +5,16 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/thumperq/golib/logging"
-	"github.com/thumperq/wms/mailbox/internal/application"
+	"github.com/thumperq/wms/mailbox/internal/app"
 )
 
 type UserApi struct {
-	appFactory application.AppFactory
+	userApp app.UserApp
 }
 
-func SetupUserApi(appFactory application.AppFactory, engine *gin.Engine) {
+func SetupUserApi(userApp app.UserApp, engine *gin.Engine) {
 	userApi := UserApi{
-		appFactory: appFactory,
+		userApp: userApp,
 	}
 	userApi.InitializeRoutes(engine)
 }
@@ -26,13 +26,13 @@ func (api UserApi) InitializeRoutes(engine *gin.Engine) {
 }
 
 func (api UserApi) createUser(c *gin.Context) {
-	var request application.UserRequest
+	var request app.UserRequest
 	if err := c.ShouldBindJSON(&request); err != nil {
 		c.Error(err)
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
-	id, err := api.appFactory.UserApp.CreateUser(c, request)
+	id, err := api.userApp.CreateUser(c, request)
 	if err != nil {
 		c.Error(err)
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
@@ -44,7 +44,7 @@ func (api UserApi) createUser(c *gin.Context) {
 
 func (api UserApi) getUser(c *gin.Context) {
 	id := c.Param("id")
-	user, err := api.appFactory.UserApp.FindUserById(c, id)
+	user, err := api.userApp.FindUserById(c, id)
 	if err != nil {
 		c.Error(err)
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})

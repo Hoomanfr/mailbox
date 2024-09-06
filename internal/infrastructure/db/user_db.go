@@ -16,10 +16,10 @@ type UserDB interface {
 	FindById(ctx context.Context, id string) (*domain.User, error)
 }
 type UserDb struct {
-	pgDb database.PgDB
+	pgDb *database.PgDB
 }
 
-func NewUserDb(pgDb database.PgDB) UserDB {
+func NewUserDb(pgDb *database.PgDB) UserDB {
 	return UserDb{
 		pgDb: pgDb,
 	}

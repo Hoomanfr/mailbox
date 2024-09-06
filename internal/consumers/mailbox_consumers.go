@@ -11,18 +11,18 @@ import (
 )
 
 type MailboxConsumer struct {
-	dbFactory db.DbFactory
+	mailboxDb db.MailboxDB
 }
 
-func NewMailboxConsumer(dbFactory db.DbFactory) MailboxConsumer {
+func NewMailboxConsumer(mailboxDb db.MailboxDB) MailboxConsumer {
 	return MailboxConsumer{
-		dbFactory: dbFactory,
+		mailboxDb: mailboxDb,
 	}
 }
 
 func (c MailboxConsumer) ConsumeMailboxTopics(ctx context.Context, event domain.MailboxCreated) error {
 	time.Sleep(5 * time.Second)
-	err := c.dbFactory.MailboxDb.ActivateMailbox(ctx, event.ID)
+	err := c.mailboxDb.ActivateMailbox(ctx, event.ID)
 	if err != nil {
 		return err
 	}
@@ -36,7 +36,7 @@ func (c MailboxConsumer) ConsumeMailboxCreatedEvent(ctx context.Context, msg mes
 	if err != nil {
 		return err
 	}
-	err = c.dbFactory.MailboxDb.ActivateMailbox(ctx, event.ID)
+	err = c.mailboxDb.ActivateMailbox(ctx, event.ID)
 	if err != nil {
 		return err
 	}

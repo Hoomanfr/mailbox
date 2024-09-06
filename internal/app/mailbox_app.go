@@ -1,7 +1,8 @@
-package application
+package app
 
 import (
 	"context"
+
 	"github.com/thumperq/golib/messaging"
 	"github.com/thumperq/wms/mailbox/internal/domain"
 	"github.com/thumperq/wms/mailbox/internal/infrastructure/db"
@@ -20,16 +21,15 @@ type MailboxResponse struct {
 }
 
 type MailboxApp struct {
-	dbFactory db.DbFactory
-	broker    *messaging.Broker
+	Broker    *messaging.Broker
+	MailboxDb db.MailboxDB
 }
 
-func NewMailboxApp(DbFactory db.DbFactory, broker *messaging.Broker) MailboxApp {
-	app := MailboxApp{
-		dbFactory: DbFactory,
-		broker:    broker,
+func NewMailboxApp(broker *messaging.Broker, mailboxDb db.MailboxDB) MailboxApp {
+	return MailboxApp{
+		Broker:    broker,
+		MailboxDb: mailboxDb,
 	}
-	return app
 }
 
 func (app MailboxApp) CreateMailbox(ctx context.Context, request MailboxRequest) (string, error) {
@@ -37,11 +37,11 @@ func (app MailboxApp) CreateMailbox(ctx context.Context, request MailboxRequest)
 	if err != nil {
 		return "", err
 	}
-	if err := app.dbFactory.MailboxDb.Create(ctx, *mailbox); err != nil {
+	if err := app.MailboxDb.Create(ctx, *mailbox); err != nil {
 		return "", err
 	}
 	event := domain.NewMailboxCreated(mailbox)
-	err = app.broker.Publish(event.Event, event)
+	err = app.Broker.Publish(event.Event, event)
 	if err != nil {
 		return "", err
 	}
@@ -49,7 +49,7 @@ func (app MailboxApp) CreateMailbox(ctx context.Context, request MailboxRequest)
 }
 
 func (app MailboxApp) UserMailboxes(ctx context.Context, userId string) ([]MailboxResponse, error) {
-	mailboxes, err := app.dbFactory.MailboxDb.FindByUserId(ctx, userId)
+	mailboxes, err := app.MailboxDb.FindByUserId(ctx, userId)
 	if err != nil {
 		return nil, err
 	}

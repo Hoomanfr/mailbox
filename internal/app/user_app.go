@@ -1,4 +1,4 @@
-package application
+package app
 
 import (
 	"context"
@@ -19,16 +19,15 @@ type UserResponse struct {
 }
 
 type UserApp struct {
-	dbFactory db.DbFactory
-	broker    *messaging.Broker
+	Broker *messaging.Broker
+	UserDb db.UserDB
 }
 
-func NewUserApp(DbFactory db.DbFactory, broker *messaging.Broker) UserApp {
-	app := UserApp{
-		dbFactory: DbFactory,
-		broker:    broker,
+func NewUserApp(broker *messaging.Broker, userDb db.UserDB) UserApp {
+	return UserApp{
+		Broker: broker,
+		UserDb: userDb,
 	}
-	return app
 }
 
 func (app UserApp) CreateUser(ctx context.Context, request UserRequest) (string, error) {
@@ -36,14 +35,14 @@ func (app UserApp) CreateUser(ctx context.Context, request UserRequest) (string,
 	if err != nil {
 		return "", err
 	}
-	if err = app.dbFactory.UserDb.Create(ctx, *user); err != nil {
+	if err = app.UserDb.Create(ctx, *user); err != nil {
 		return "", err
 	}
 	return user.ID, nil
 }
 
 func (app UserApp) FindUserById(ctx context.Context, id string) (*UserResponse, error) {
-	user, err := app.dbFactory.UserDb.FindById(ctx, id)
+	user, err := app.UserDb.FindById(ctx, id)
 	if err != nil {
 		return nil, err
 	}

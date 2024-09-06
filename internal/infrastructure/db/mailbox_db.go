@@ -16,17 +16,17 @@ type MailboxDB interface {
 	ActivateMailbox(ctx context.Context, mailboxId string) error
 }
 
-type MailboxDb struct {
-	pgDb database.PgDB
+type mailboxDb struct {
+	pgDb *database.PgDB
 }
 
-func NewMailboxDb(pgDb database.PgDB) MailboxDB {
-	return MailboxDb{
+func NewMailboxDb(pgDb *database.PgDB) MailboxDB {
+	return mailboxDb{
 		pgDb: pgDb,
 	}
 }
 
-func (db MailboxDb) Create(ctx context.Context, mailbox domain.Mailbox) error {
+func (db mailboxDb) Create(ctx context.Context, mailbox domain.Mailbox) error {
 	err := db.pgDb.WithTransaction(ctx, func(tx pgx.Tx) error {
 		sql, args, err := sb.Insert("mailboxes").
 			Columns("id", "user_id", "email", "created_at", "status").
@@ -44,7 +44,7 @@ func (db MailboxDb) Create(ctx context.Context, mailbox domain.Mailbox) error {
 	return err
 }
 
-func (db MailboxDb) FindByUserId(ctx context.Context, userId string) ([]domain.Mailbox, error) {
+func (db mailboxDb) FindByUserId(ctx context.Context, userId string) ([]domain.Mailbox, error) {
 	var mailboxes []domain.Mailbox
 	err := db.pgDb.WithConnection(ctx, func(c *pgxpool.Conn) error {
 		sql, args, err := sb.Select("id", "user_id", "email", "created_at", "status").
@@ -72,7 +72,7 @@ func (db MailboxDb) FindByUserId(ctx context.Context, userId string) ([]domain.M
 	return mailboxes, err
 }
 
-func (db MailboxDb) ActivateMailbox(ctx context.Context, mailboxId string) error {
+func (db mailboxDb) ActivateMailbox(ctx context.Context, mailboxId string) error {
 	err := db.pgDb.WithTransaction(ctx, func(tx pgx.Tx) error {
 		sql, args, err := sb.Update("mailboxes").
 			Set("status", domain.MailboxStatusActive).
