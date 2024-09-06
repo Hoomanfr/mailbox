@@ -210,6 +210,10 @@ github.com/thumperq/golib v0.1.37 h1:cegevjZAOE924S0bXRyf438HXfx5v0l07qREZm4EOM8
 github.com/thumperq/golib v0.1.37/go.mod h1:8gLNYl5aXOvRBjGtkjHGhp1FJiJhn5bsM+6kEyKQqsM=
 github.com/thumperq/golib v0.1.38 h1:cwcRQdH9D34LK+zIk7puUKlSarKxLe6yL2+gweTV0CQ=
 github.com/thumperq/golib v0.1.38/go.mod h1:8gLNYl5aXOvRBjGtkjHGhp1FJiJhn5bsM+6kEyKQqsM=
+github.com/thumperq/golib v0.1.39 h1:3KUb4TXkm2ykw78D+uPDPkOQYhhVenAOBvVdDQLPBuw=
+github.com/thumperq/golib v0.1.39/go.mod h1:8gLNYl5aXOvRBjGtkjHGhp1FJiJhn5bsM+6kEyKQqsM=
+github.com/thumperq/golib v0.1.41 h1:jSMB8qjZXKpCBUon7Kn/X6bl9KmWMqpr4Mcnj2BfV2E=
+github.com/thumperq/golib v0.1.41/go.mod h1:8gLNYl5aXOvRBjGtkjHGhp1FJiJhn5bsM+6kEyKQqsM=
 github.com/twitchyliquid64/golang-asm v0.15.1 h1:SU5vSMR7hnwNxj24w34ZyCi/FmDZTkS4MhqMhdFk5YI=
 github.com/twitchyliquid64/golang-asm v0.15.1/go.mod h1:a1lVb/DtPvCB8fslRZhAngC2+aY1QWCk3Cedj/Gdt08=
 github.com/ugorji/go v1.2.7/go.mod h1:nF9osbDWLy6bDVv/Rtoh6QgnvNDpmCalQV5urGCCS6M=

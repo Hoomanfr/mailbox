@@ -7,7 +7,6 @@ import (
 	"github.com/thumperq/golib/database"
 	"github.com/thumperq/golib/environment"
 	"github.com/thumperq/golib/logging"
-	"github.com/thumperq/golib/messaging"
 	"github.com/thumperq/wms/mailbox/api"
 	"github.com/thumperq/wms/mailbox/internal/app"
 	"github.com/thumperq/wms/mailbox/internal/consumers"
@@ -20,6 +19,7 @@ func main() {
 		WithBroker().
 		WithDbFactory().
 		WithAppFactory().
+		WithWorker().
 		Bootstrap(bootstrap)
 
 	if err != nil {
@@ -33,7 +33,10 @@ func bootstrap(env *environment.Env) error {
 	setupDbs(env)
 	setupApps(env)
 	setupApis(env)
-	runSubscribers(env)
+	err := runSubscribers(env)
+	if err != nil {
+		return err
+	}
 	return nil
 }
 
@@ -59,9 +62,9 @@ func setupApis(env *environment.Env) {
 }
 
 func runSubscribers(env *environment.Env) error {
+	ctx := context.Background()
 	mailboxConsumers := consumers.NewMailboxConsumer(environment.GetRepo[db.MailboxDB]())
-	err := messaging.NewSubscriber(env.Broker).
-		Subscribe(context.Background(), "wms", "mailbox", domain.MailboxTopic, mailboxConsumers.ConsumeMailboxCreatedEvent)
+	err := env.Worker.Run(mailboxConsumers)(ctx, "wms", "mailbox", domain.MailboxTopic)
 	if err != nil {
 		return err
 	}

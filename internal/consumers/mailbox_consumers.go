@@ -20,16 +20,7 @@ func NewMailboxConsumer(mailboxDb db.MailboxDB) MailboxConsumer {
 	}
 }
 
-func (c MailboxConsumer) ConsumeMailboxTopics(ctx context.Context, event domain.MailboxCreated) error {
-	time.Sleep(5 * time.Second)
-	err := c.mailboxDb.ActivateMailbox(ctx, event.ID)
-	if err != nil {
-		return err
-	}
-	return nil
-}
-
-func (c MailboxConsumer) ConsumeMailboxCreatedEvent(ctx context.Context, msg messaging.Message) error {
+func (c MailboxConsumer) Handle(ctx context.Context, msg messaging.Message) error {
 	time.Sleep(5 * time.Second)
 	var event domain.MailboxCreated
 	err := json.Unmarshal(msg.Data, &event)
