@@ -12,7 +12,6 @@ WORKDIR /mailbox
 COPY . .
 RUN go mod download && go mod verify
 WORKDIR /mailbox/cmd
-ENV GIN_MODE=release
 RUN go build -o mailbox-srv
 # Final image
 FROM golang:1.21-alpine

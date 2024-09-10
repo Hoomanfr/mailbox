@@ -3,7 +3,6 @@ package api
 import (
 	"net/http"
 
-	"github.com/gin-gonic/gin"
 	httpserver "github.com/thumperq/golib/servers/http"
 	"github.com/thumperq/wms/mailbox/internal/app"
 )
@@ -36,7 +35,7 @@ func (api MailboxApi) createMailbox(w http.ResponseWriter, r *http.Request) {
 		httpserver.Json(http.StatusInternalServerError, w, httpserver.H{"error": err.Error()})
 		return
 	}
-	httpserver.Json(http.StatusCreated, w, gin.H{"id": id})
+	httpserver.Json(http.StatusCreated, w, httpserver.H{"id": id})
 }
 
 func (api MailboxApi) getMailboxByUserId(w http.ResponseWriter, r *http.Request) {
@@ -44,7 +43,7 @@ func (api MailboxApi) getMailboxByUserId(w http.ResponseWriter, r *http.Request)
 	userId := r.PathValue("user_id")
 	mailboxes, err := api.mailboxApp.UserMailboxes(ctx, userId)
 	if err != nil {
-		httpserver.Json(http.StatusInternalServerError, w, gin.H{"error": err.Error()})
+		httpserver.Json(http.StatusInternalServerError, w, httpserver.H{"error": err.Error()})
 		return
 	}
 	if mailboxes == nil {
